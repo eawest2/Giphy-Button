@@ -3,7 +3,7 @@
 //Variable Storage:
 
     //Array of all buttons on the page
-    var buttonArray = ["elves","dwarves","orcs","hobbits","minotaur","drow","merfolk", "humans", "dragonborn", "tieflings"]
+    var buttonArray = ["elves","dwarves","orcs","hobbits","minotaur","drow","merfolk", "humans", "dragonborn", "tiefling"]
 
     //Empty variable for URL composition
 
@@ -23,7 +23,7 @@
         $("#button-holder").text(" ")
         for (var i = 0; i < buttonArray.length; i++){
             var activeButton = buttonArray[i];
-            var activeButtonClicker = '<button id ="' + activeButton + '" data-button="' + activeButton + '" class = "gif-button">' + activeButton + "</button>";
+            var activeButtonClicker = "<button " + ' data-button="' + activeButton + '" class = "gif-button">' + activeButton + "</button> ";
 
         $("#button-holder").append(activeButtonClicker)
 
@@ -38,59 +38,62 @@
         writeButtons();
     };
 
+//on click for giphButton class
+$(document).on("click", ".gif-button", function() {
     //retrieve gifs and write to HTML
-    function setGifs () {
-        searchTerm = attribution
-        console.log(searchTerm)
-        $.ajax({
-            url: queryURL,
-            method: "GET"
+            // Grabbing and storing the data-button property value from the button
+        var atribution = $(this).attr("data-button");
+      
+            // Constructing a queryURL using the button name
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+              atribution + "&api_key=dc6zaTOxFJmzC&limit=10";
+      
+            // Performing an AJAX request with the queryURL
+            $.ajax({
+              url: queryURL,
+              method: "GET"
             })
-            // After the data comes back from the API
-            .then(function(response) {
-                // Storing an array of results in the results variable
+              // After data comes back from the request
+              .then(function(response) {
+
+                // storing the data from the AJAX request in the results variable
                 var results = response.data;
-    
-                // Looping over every result item
+                $("#gif-display").text(" ");
+      
+                // Looping through each result item
                 for (var i = 0; i < results.length; i++) {
+                    var imgUrlStill = results[i].images.fixed_height_still.url;
+                    var imgUrlMove = results[i].images.fixed_height.url;
+                    var construct = '<p><img class ="click-gif" data-status= "still" data-still= "'+imgUrlStill + '" ' + 'data-move = "' + imgUrlMove + '" src= "'+ imgUrlStill + '" ></p>';
+                    $("#gif-display").append(construct);
+      
+                  
+                }
+              });
     
-                // Only taking action if the photo has an appropriate rating
-                if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
-                    // Creating a div with the class "item"
-                    var gifDiv = $("<div class='item'>");
-    
-                    // Storing the result item's rating
-                    var rating = results[i].rating;
-    
-                    // Creating a paragraph tag with the result item's rating
-                    var p = $("<p>").text("Rating: " + rating);
-    
-                    // Creating an image tag
-                    var personImage = $("<img>");
-    
-                    // Giving the image tag an src attribute of a proprty pulled off the
-                    // result item
-                    personImage.attr("src", results[i].images.fixed_height.url);
-    
-                    // Appending the paragraph and personImage we created to the "gifDiv" div we created
-                    gifDiv.append(p);
-                    gifDiv.append(personImage);
-    
-                    // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
-                    $("#gif-display").prepend(gifDiv)}}
-                
-                
-                });
+});
 
-    };
+// Pause and unpause gifs
 
-    //on click for giphButton class
-
-    $(".gif-button").on("click", function(){
-        var attribution = $(this).attr("data-button")
-        setGifs(attribution);
-        console.log(attribution)
+$(document).on("click", ".click-gif", function() {
+    //select element
+    var state = $(this).attr("data-status");
+    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+    // Then, set the image's data-state to animate
+    
+    if (state === "still") {
+        $(this).attr("src", $(this).attr("data-move"));
+        $(this).attr("data-status", "move");
+    } 
+    // Else set src to data-still 
+    else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-status", "still");
+    }
     });
+
+
+
 
     //on click for seatch button
 
