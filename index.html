@@ -8,29 +8,38 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     </head>
 
-    <body class= "bg-dark text-white">
-        <div class = "container row">
-            <h1 class = "text-success m-4">Click a button for .gifs!</h1>
+    <body class= "bg-dark text-white row">
+        <div class= "col-1"></div>
+        <div class = "container row col-10">
+            <div class= "col-3"></div>
+            <h1 class = "text-success m-4 col-6">Click a button for .gifs!</h1>
+
+
             <!-- Button placement area -->
+            <div class= "col-3"></div>
             <section id = "button-holder" class = "col-12 m-2"></section>
+
+
             <!-- Submission Div -->
-            <div class= "container col-12 row">
-
-                <div class = "col-12">
-                    <input type= "text" id = "text-input" class = "m-2">
-                    <button id = "submit-button" class = "btn btn-success m-2"> Submit </button>
-                </div>
+            <div class= "row col-12">
+                    <div class= "col-3"></div>
+                    <div class = "col-6">
+                            <input type= "text" id = "text-input" class = "m-2">
+                            <button id = "submit-button" class = "btn btn-success m-2"> Submit </button>
+                    </div>
+                <div class= "col-3"></div>
+            </div>
                 
-                <section class = "col-8 row">
-                <div id = "gif-display" class = "col-8 m-3">
+                <div id = "gif-display" class = "col-12 m-3">
 
                 </div>
+                <div class= "col-1"></div>
                 </section>
                 
                
 
                 
-            </div>
+            
 
 
         </div>

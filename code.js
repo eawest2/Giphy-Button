@@ -18,7 +18,7 @@
         $("#button-holder").text(" ")
         for (var i = 0; i < buttonArray.length; i++){
             var activeButton = buttonArray[i];
-            var activeButtonClicker = "<button " + ' data-button="' + activeButton + '" class = "gif-button btn btn-secondary">' + activeButton + "</button> ";
+            var activeButtonClicker = "<button " + ' data-button="' + activeButton + '" class = "gif-button btn btn-secondary m-1">' + activeButton + "</button> ";
 
         $("#button-holder").append(activeButtonClicker)
 
@@ -59,7 +59,6 @@
 
                 // storing the AJAX as a variable for less typing.
                 var results = response.data;
-                $("#gif-display").text(" ");
         
                 // Looping through each result item
                 for (var i = 0; i < results.length; i++) {
@@ -70,9 +69,11 @@
                     var rating = '<p class = "text-success"> Gif Rating: ' + buildRating + '</p>';
                     var construct = '<p><img class ="click-gif" data-status= "still" data-still= "'+imgUrlStill + '" ' + 'data-move = "' + imgUrlMove + '" src= "'+ imgUrlStill + '" ></p>';
                     var source = '<a href = "'+ buildSource + '" target = "_blank" class = "text-success">' +buildSource + "<hr>"
+                    
                     $("#gif-display").append(construct);
                     $("#gif-display").append(rating);
                     $("#gif-display").append(source);
+                    
 
 
         
