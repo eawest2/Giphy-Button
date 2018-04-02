@@ -43,33 +43,33 @@ $(document).on("click", ".gif-button", function() {
     //retrieve gifs and write to HTML
             // Grabbing and storing the data-button property value from the button
         var atribution = $(this).attr("data-button");
-      
+        
             // Constructing a queryURL using the button name
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-              atribution + "&api_key=dc6zaTOxFJmzC&limit=10";
-      
+                atribution + "&api_key=dc6zaTOxFJmzC&limit=10";
+        
             // Performing an AJAX request with the queryURL
             $.ajax({
-              url: queryURL,
-              method: "GET"
+                url: queryURL,
+                method: "GET"
             })
-              // After data comes back from the request
-              .then(function(response) {
+                // After data comes back from the request
+                .then(function(response) {
 
                 // storing the data from the AJAX request in the results variable
                 var results = response.data;
                 $("#gif-display").text(" ");
-      
+        
                 // Looping through each result item
                 for (var i = 0; i < results.length; i++) {
                     var imgUrlStill = results[i].images.fixed_height_still.url;
                     var imgUrlMove = results[i].images.fixed_height.url;
                     var construct = '<p><img class ="click-gif" data-status= "still" data-still= "'+imgUrlStill + '" ' + 'data-move = "' + imgUrlMove + '" src= "'+ imgUrlStill + '" ></p>';
                     $("#gif-display").append(construct);
-      
-                  
+        
+                    
                 }
-              });
+                });
     
 });
 
